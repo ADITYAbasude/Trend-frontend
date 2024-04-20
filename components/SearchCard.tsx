@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getUserId } from "@/utils/utils";
 
 interface userExtendedInterface extends UserObject {
-  getUser: UserObject[];
+  getUser: UserObject;
 }
 
 export const SearchCard = (user: userExtendedInterface) => {
@@ -27,16 +27,16 @@ export const SearchCard = (user: userExtendedInterface) => {
       }
     `
   );
-
+  console.log(user);
   const handleFollowButton = (followerId: string) => {
     if (clicked) {
       unfollow({
-        variables: { followerId: followerId, userId: user.getUser[0].id },
+        variables: { followerId: followerId, userId: user.getUser.id },
       });
       setClicked(false);
     } else {
       follow({
-        variables: { followerId: followerId, userId: user.getUser[0].id },
+        variables: { followerId: followerId, userId: user.getUser.id },
       });
       setClicked(true);
     }
