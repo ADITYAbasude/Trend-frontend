@@ -134,7 +134,6 @@ const SideNavigation = () => {
           className="flex items-center gap-2 py-2.5 my-1 px-4 rounded-md transition duration-200 hover:bg-slate-200 dark:hover:bg-gray dark:hover:bg-opacity-10 text-danger"
           href="/auth/login"
           onClick={(e: any) => {
-            e.preventDefault();
             document.cookie =
               "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             document.cookie =
