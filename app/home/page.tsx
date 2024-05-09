@@ -8,6 +8,7 @@ import { useAuthStore } from "@/stores/auth.store";
 import { getToken, getUserId } from "@/utils/utils";
 import { gql, useQuery } from "@apollo/client";
 import { Spinner } from "@nextui-org/react";
+import { Metadata } from "next";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -19,6 +20,12 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home() {
+
+  const metadata: Metadata = {
+    title: 'Trend home',
+    description: 'Trend home page'
+  }
+
   const [id, setId] = useState<String>();
   const [token, setToken] = useState<String>();
 

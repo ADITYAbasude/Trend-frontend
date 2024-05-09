@@ -9,6 +9,7 @@ import { getToken, getUserId } from "@/utils/utils";
 import { gql, useQuery } from "@apollo/client";
 import { Button, Input, Skeleton, Textarea, User } from "@nextui-org/react";
 import React, { useEffect, useRef, useState } from "react";
+import { Metadata } from "next";
 
 const Edit = () => {
   const { loading, data, refetch } = useUser();
@@ -79,6 +80,11 @@ const Edit = () => {
       setAvatar("/images/user.png");
     }
   }, [data, getBio.data]);
+
+  const metadata: Metadata = {
+    title: `Edit Trend channel`,
+    description: 'Follow Trend channels to get more funny memes.'
+  };
 
   return (
     <Layout>

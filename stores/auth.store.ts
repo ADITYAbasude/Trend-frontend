@@ -111,7 +111,8 @@ export const useAuthStore = create<AuthStore>()((set) => ({
   login: async (mailId: string, password: string) => {
     try {
       set({ loading: true });
-      const response = await axios.post(`${baseurl}api/v1/auth/login`, 
+      const response = await axios.post(
+        `${baseurl}api/v1/auth/login`,
         { mailId, password },
         {
           headers: {
@@ -119,7 +120,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
           },
         }
       );
-    
+
       const data = response.data;
       if (response.status === 200) {
         document.cookie = serialize("token", data.token, {
@@ -127,9 +128,11 @@ export const useAuthStore = create<AuthStore>()((set) => ({
           maxAge: 7 * 24 * 12 * 60 * 60,
         });
         set({ successful: true, message: data.message, loading: false });
-      } else set({ successful: false, message: data.message, loading: false });
+      }
     } catch (error: any) {
-      set({ successful: false, message: error.message, loading: false });
+      set({ message: error.message });
+    } finally {
+      set({ loading: false });
     }
   },
   verifyUser: async () => {
@@ -146,7 +149,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
         },
         signal,
       });
-    
+
       const data = response.data;
       if (response.status === 200) {
         document.cookie = serialize("userId", data.id, {

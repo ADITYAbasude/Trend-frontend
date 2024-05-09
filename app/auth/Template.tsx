@@ -1,8 +1,12 @@
 "use client";
 import { Logo } from "@/components";
+import { Metadata } from "next";
 import React from "react";
 
 function Template({ children }: { children: React.ReactNode }) {
+  const metadata: Metadata ={
+    title: 'Trend login'
+  }
   return (
     <div className="flex w-full">
       <div

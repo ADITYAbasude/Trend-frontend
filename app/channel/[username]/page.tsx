@@ -13,6 +13,7 @@ import {
   Spinner,
   Tooltip,
 } from "@nextui-org/react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -166,6 +167,12 @@ const Profile = () => {
       setAvatar("/images/user.png");
     }
   }, [getMetaData.data]);
+
+  const metadata: Metadata = {
+    title: `Trend channel ${getMetaData.data?.getUser?.username}`,
+    description: 'Follow Trend channels to get more funny memes.'
+  };
+
   return (
     <Layout>
       <div className="select-none items-center h-full w-full lg:mx-16 mt-[5rem] lg-mt-[8rem] text-black dark:text-white">

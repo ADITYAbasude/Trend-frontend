@@ -14,7 +14,6 @@ import {
 import { getMainDefinition } from "@apollo/client/utilities";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -79,13 +78,11 @@ export default function RootLayout({
         <ApolloProvider client={client}>
           <NextUIProvider>
             <ThemeProvider attribute="class" defaultTheme="light">
-              <GoogleOAuthProvider clientId={CLIENT_ID}>
                 <div
                   className={`${theme} flex-col justify-center bg-white dark:bg-black`}
                 >
                   {children}
                 </div>
-              </GoogleOAuthProvider>
             </ThemeProvider>
           </NextUIProvider>
         </ApolloProvider>

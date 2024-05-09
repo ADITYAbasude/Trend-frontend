@@ -7,8 +7,15 @@ import { PiCaretLeft, PiMagnifyingGlass, PiTrendUp } from "react-icons/pi";
 import { gql, useQuery } from "@apollo/client";
 import { PostCard } from "@/components";
 import { getUserId } from "@/utils/utils";
+import { Metadata } from "next";
 
 const Trending = () => {
+
+  const metadata: Metadata = {
+    title: "Trend trending memes",
+    description: "See world trending memes in Trend",
+  }
+
   const topics = ["trending", "popular", "new"];
   const [currentTopic, setCurrentTopic] = useState(topics[0]);
 

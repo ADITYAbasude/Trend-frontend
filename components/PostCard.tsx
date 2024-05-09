@@ -24,11 +24,9 @@ import {
   ScrollShadow,
   Tooltip,
   useDisclosure,
-  Spinner,
 } from "@nextui-org/react";
 import Link from "next/link";
 import React, {
-  CanvasHTMLAttributes,
   LegacyRef,
   useEffect,
   useMemo,
@@ -51,8 +49,6 @@ import {
   PiWarningCircle,
 } from "react-icons/pi";
 import { Share } from ".";
-import InfiniteScroll from "react-infinite-scroll-component";
-import html2canvas from "html2canvas";
 
 const PostCard = (meme: any) => {
   const e = meme;
@@ -579,19 +575,6 @@ const PostCard = (meme: any) => {
                 className="w-full max-w-[260px] p-1 border-small rounded-small border-default-200 dark:border-default-100
               text-black dark:text-white"
               >
-                {/* <Input
-                  size="sm"
-                  type="text"
-                  placeholder="@tag"
-                  labelPlacement="outside"
-                  onChange={(e: any) => {
-                    setSearchText(e.target.value);
-
-                    searchResults.data?.searchFollowerUsers.filter(
-                      (username: any) => username.includes(e.target.value)
-                    );
-                  }}
-                /> */}
                 <Listbox
                   topContent={topContent}
                   classNames={{

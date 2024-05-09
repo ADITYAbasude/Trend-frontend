@@ -4,10 +4,26 @@ import { PostCard } from "@/components";
 import Layout from "@/layouts/Layout";
 import { getUserId } from "@/utils/utils";
 import { gql, useQuery } from "@apollo/client";
+import { Metadata } from "next";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const PostView = () => {
+
+  const metadata: Metadata = {
+    title: "Trend post",
+    description: "trend post",
+    openGraph: {
+      title: "Trend post",
+      description: "trend post",
+    },
+    twitter: {
+      title: "Trend post",
+      description: "trend post",
+    },
+    robots: "noindex, nofollow",
+  }
+
   const getPostId = usePathname();
 
   const [userId, setUserId] = useState();

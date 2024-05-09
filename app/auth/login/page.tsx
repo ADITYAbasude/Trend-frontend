@@ -9,8 +9,6 @@ import { useAuthStore } from "@/stores/auth.store";
 import Template from "../Template";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/utils/utils";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FaGoogle } from "react-icons/fa6";
 
 const metadata: Metadata = {
   title: "Login",
@@ -24,16 +22,16 @@ function Login() {
   });
 
   const [visible, setVisible] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
 
   const { successful, loading, message, valid } = useAuthStore(
     (state) => state
   );
   const router = useRouter();
+
   useEffect(() => {
-    if (successful) {
-      router.push("/");
-    }
-  }, [successful, router]);
+    getToken().then((res: any) => setToken(res));
+  }, [successful]);
 
   {
     /*
@@ -41,27 +39,24 @@ function Login() {
      *if valid then redirect to home page
      */
   }
-  const tokenValue = getToken();
-  const token: any =
-    typeof tokenValue === "string"
-      ? (tokenValue as string).split(" ")[1]
-      : null;
+
   useEffect(() => {
-    if (
-      token !== "undefined" &&
-      token !== undefined &&
-      token !== null &&
-      token !== ""
-    ) {
+    if (token && token !== undefined) {
       useAuthStore.getState().verifyUser();
     }
   }, [token]);
 
   useEffect(() => {
     if (valid) {
-      router.push("/");
+      router.push("/home");
     }
-  }, [valid, router]);
+  }, [router, valid]);
+
+  // useEffect(() => {
+  //   if (successful) {
+  //     router.push("/");
+  //   }
+  // }, [successful, router]);
 
   const toggleVisibility = () => setVisible(!visible);
   return (
@@ -120,7 +115,7 @@ function Login() {
         color="primary"
         variant="shadow"
         radius="sm"
-        onClick={ _ => {
+        onClick={(_) => {
           useAuthStore.getState().login(userData.mailId, userData.password);
         }}
       >

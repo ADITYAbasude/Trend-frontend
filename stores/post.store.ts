@@ -1,9 +1,6 @@
-import { Canvas } from './../node_modules/canvas/types/index.d';
 import axios from "axios";
 import { create } from "zustand";
 import { parse } from "cookie";
-import puppeteer from "puppeteer";
-import GIFEncoder from "gifencoder";
 
 //* APP_API_BASE_URL is an environment variable that is set in .env file
 //* APP_API_BASE_URL=http://localhost:5000/

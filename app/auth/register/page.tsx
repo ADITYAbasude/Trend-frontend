@@ -9,8 +9,6 @@ import Template from "../Template";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/utils/utils";
 import OtpInput from "react-otp-input";
-import { FaGoogle } from "react-icons/fa6";
-import { useGoogleLogin } from "@react-oauth/google";
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({

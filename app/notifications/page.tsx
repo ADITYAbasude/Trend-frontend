@@ -11,6 +11,7 @@ import Layout from "@/layouts/Layout";
 import { getUserId, timeAgo } from "@/utils/utils";
 import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
 import { Avatar, Button } from "@nextui-org/react";
+import { Metadata } from "next";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -101,6 +102,11 @@ const NotificationComponent: React.FC<{
       });
       setClicked(true);
     }
+  };
+
+  const metadata: Metadata = {
+    title: "Notification",
+    description: "Notification",
   };
 
   return (
