@@ -9,6 +9,7 @@ import { getToken, getUserId } from "@/utils/utils";
 import { gql, useQuery } from "@apollo/client";
 import { Spinner } from "@nextui-org/react";
 import { Metadata } from "next";
+import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -20,23 +21,23 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home() {
+  const [id, setId] = useState<String | undefined>();
+  const [token, setToken] = useState<String | undefined>();
 
-  const metadata: Metadata = {
-    title: 'Trend home',
-    description: 'Trend home page'
-  }
-
-  const [id, setId] = useState<String>();
-  const [token, setToken] = useState<String>();
-
-  const { valid } = useAuthStore((state) => state);
+  const { valid, loading } = useAuthStore((state) => state);
   const router = useRouter();
 
   const user = useUser();
 
   useEffect(() => {
-    getUserId().then((res) => setId(res));
-    getToken().then((res) => setToken(res));
+    getUserId()
+      .then((res) => setId(res))
+      .catch((err) => console.log(err));
+    getToken()
+      .then((res) => {
+        if (res) setToken(res);
+      })
+      .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -104,7 +105,7 @@ export default function Home() {
   useEffect(() => {
     if (token !== "undefined" && token !== undefined) {
       useAuthStore.getState().verifyUser();
-      if (valid) router.push("/home");
+      if (valid && token) router.push("/home");
     } else {
       router.push("/auth/login");
     }
@@ -113,12 +114,16 @@ export default function Home() {
   return (
     <>
       <Layout>
+        <Head>
+          <title>Trend home</title>
+        </Head>
         <div className="flex justify-end max-lg:justify-center">
           {trendingChannels.data && (
             <div
               className={`my-[4.5rem] mx-0 fixed left-1 right-1 border-black/20 dark:border-gray-100/20 border-1 
           w-[27%] rounded-md max-lg:hidden text-black dark:text-white ${
-            posts.data?.getPost?.edges.length == 0 && "max-md:block max-md:w-full"
+            posts.data?.getPost?.edges.length == 0 &&
+            "max-md:block max-md:w-full"
           }`}
             >
               <h3 className="p-2 flex items-center">

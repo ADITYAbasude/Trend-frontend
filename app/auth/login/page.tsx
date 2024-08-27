@@ -30,7 +30,10 @@ function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    getToken().then((res: any) => setToken(res));
+    if (successful)
+      getToken()
+        .then((res: any) => setToken(res))
+        .catch((err) => console.log(err));
   }, [successful]);
 
   {
@@ -47,10 +50,11 @@ function Login() {
   }, [token]);
 
   useEffect(() => {
-    if (valid) {
+    if (valid && token) {
+      console.log(token, valid);
       router.push("/home");
     }
-  }, [router, valid]);
+  }, [router, valid, token]);
 
   // useEffect(() => {
   //   if (successful) {

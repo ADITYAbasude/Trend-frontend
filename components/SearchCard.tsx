@@ -27,7 +27,6 @@ export const SearchCard = (user: userExtendedInterface) => {
       }
     `
   );
-  console.log(user);
   const handleFollowButton = (followerId: string) => {
     if (clicked) {
       unfollow({

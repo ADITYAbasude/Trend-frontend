@@ -14,25 +14,25 @@ const Splash = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getToken().then((res: any) => setToken(res));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getToken()
+      .then((res: any) => setToken(res))
+      .catch((err) => console.log(err));
   }, []);
 
   //* token verification
   useEffect(() => {
     if (token !== undefined) {
-      console.log(token, valid);
       useAuthStore
         .getState()
         .verifyUser()
         .then(() => {
           if (valid) router.push("/home");
-        });
+        })
+        .catch((err) => console.log(err));
     } else {
-      // if (token === undefined) {
-      //   console.log("no token");
-      //   router.push("/auth/login");
-      // }
+      if (token === undefined) {
+        router.push("/auth/login");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, valid]);
