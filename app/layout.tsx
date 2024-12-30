@@ -45,6 +45,35 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const defaultMetadata = {
+  metadataBase: new URL('https://trend-dusky.vercel.app'),
+  title: {
+    default: 'Trend - Share Amazing Memes',
+    template: '%s | Trend'
+  },
+  description: 'Join Trend to discover and share the best memes. Connect with meme lovers and stay updated with trending content.',
+  keywords: ['memes', 'social media', 'trending memes', 'funny content', 'meme sharing'],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://trend-dusky.vercel.app',
+    siteName: 'Trend',
+    images: [{
+      url: '/images/og-image.png',
+      width: 1200,
+      height: 630
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@TrendApp'
+  },
+  robots: {
+    index: true,
+    follow: true
+  }
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -74,6 +103,11 @@ export default function RootLayout({
   const CLIENT_ID: string = process.env.NEXT_PUBLIC_APP_GOOGLE_CLIENT_ID as string;
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://your-domain.com" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body className={inter.className}>
         <ApolloProvider client={client}>
           <NextUIProvider>

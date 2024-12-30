@@ -114,9 +114,13 @@ export default function Home() {
   return (
     <>
       <Layout>
-        <Head>
-          <title>Trend home</title>
-        </Head>
+      <Head>
+        <title>Home Feed | Trend</title>
+        <meta name="description" content="Your personalized feed of the best memes from creators you follow" />
+        <link rel="canonical" href="https://trend-dusky.vercel.app/home" />
+        <meta property="og:title" content="Trending Memes Feed | Trend" />
+        <meta property="og:description" content="Discover the most popular memes and trending content" />
+      </Head>
         <div className="flex justify-end max-lg:justify-center">
           {trendingChannels.data && (
             <div

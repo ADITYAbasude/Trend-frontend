@@ -22,45 +22,37 @@ function Login() {
   });
 
   const [visible, setVisible] = useState(false);
-  const [token, setToken] = useState<string | undefined>(undefined);
 
   const { successful, loading, message, valid } = useAuthStore(
     (state) => state
   );
   const router = useRouter();
 
+  // Handle both initial auth check and login success
   useEffect(() => {
-    if (successful)
-      getToken()
-        .then((res: any) => setToken(res))
-        .catch((err) => console.log(err));
-  }, [successful]);
+    const handleAuth = async () => {
+      try {
+        if (successful) {
+          // Wait for token to be set after successful login
+          await new Promise(resolve => setTimeout(resolve, 100));
+          router.push("/home");
+          return;
+        }
 
-  {
-    /*
-     *if user already has a token then verify that token is valid or not
-     *if valid then redirect to home page
-     */
-  }
+        const existingToken = await getToken();
+        if (existingToken) {
+          await useAuthStore.getState().verifyUser();
+          if (valid) {
+            router.push("/home");
+          }
+        }
+      } catch (err) {
+        console.error("Auth check error:", err);
+      }
+    };
 
-  useEffect(() => {
-    if (token && token !== undefined) {
-      useAuthStore.getState().verifyUser();
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (valid && token) {
-      console.log(token, valid);
-      router.push("/home");
-    }
-  }, [router, valid, token]);
-
-  // useEffect(() => {
-  //   if (successful) {
-  //     router.push("/");
-  //   }
-  // }, [successful, router]);
+    handleAuth();
+  }, [successful, valid, router]);
 
   const toggleVisibility = () => setVisible(!visible);
   return (
